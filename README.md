@@ -1,2 +1,2 @@
-# homecontroller
+# HomeController
 Simple home automation
