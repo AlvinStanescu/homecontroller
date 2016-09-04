@@ -16,7 +16,7 @@
         private const double ConfidenceThreshold = 0.6;
 
         private SpeechRecognizer recognizer;
-        private IDictionary<string, IHomeController> availableCommands = new Dictionary<string, IHomeController>();
+        private readonly IDictionary<string, IHomeController> availableCommands = new Dictionary<string, IHomeController>();
 
         public MainPage()
         {

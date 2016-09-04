@@ -7,14 +7,17 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeController", "HomeContr
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
 		Debug|ARM = Debug|ARM
 		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
 		Release|ARM = Release|ARM
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{EF549D67-17F8-493F-BFE3-EEF608B87E41}.Debug|Any CPU.ActiveCfg = Debug|x86
 		{EF549D67-17F8-493F-BFE3-EEF608B87E41}.Debug|ARM.ActiveCfg = Debug|ARM
 		{EF549D67-17F8-493F-BFE3-EEF608B87E41}.Debug|ARM.Build.0 = Debug|ARM
 		{EF549D67-17F8-493F-BFE3-EEF608B87E41}.Debug|ARM.Deploy.0 = Debug|ARM
@@ -24,6 +27,7 @@ Global
 		{EF549D67-17F8-493F-BFE3-EEF608B87E41}.Debug|x86.ActiveCfg = Debug|x86
 		{EF549D67-17F8-493F-BFE3-EEF608B87E41}.Debug|x86.Build.0 = Debug|x86
 		{EF549D67-17F8-493F-BFE3-EEF608B87E41}.Debug|x86.Deploy.0 = Debug|x86
+		{EF549D67-17F8-493F-BFE3-EEF608B87E41}.Release|Any CPU.ActiveCfg = Release|x86
 		{EF549D67-17F8-493F-BFE3-EEF608B87E41}.Release|ARM.ActiveCfg = Release|ARM
 		{EF549D67-17F8-493F-BFE3-EEF608B87E41}.Release|ARM.Build.0 = Release|ARM
 		{EF549D67-17F8-493F-BFE3-EEF608B87E41}.Release|ARM.Deploy.0 = Release|ARM

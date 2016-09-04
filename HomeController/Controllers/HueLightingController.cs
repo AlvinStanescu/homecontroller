@@ -32,8 +32,8 @@
 
                 foreach (var gradient in ColorGradients.Gradients)
                 {
-                    var gradientName = gradient.Key;
-                    var targetColors = gradient.Value.GetColorsForLights(numberOfLights);
+                    var gradientName = gradient.Name;
+                    var targetColors = gradient.GetColorsForLights(numberOfLights);
 
                     this.handlers.Add(GetRoomNamePhrase(roomName) + " " + gradientName,
                         () => this.On(roomName, targetColors));
@@ -101,10 +101,10 @@
             }
         }
 
-        private async Task Off(string roomName)
+        private Task Off(string roomName)
         {
             var command = new LightCommand { On = false };
-            await this.localHueClient.SendCommandAsync(command, RoomLightMappings[roomName]);
+            return this.localHueClient.SendCommandAsync(command, RoomLightMappings[roomName]);
         }
         
         private static string GetRoomNamePhrase(string roomName)

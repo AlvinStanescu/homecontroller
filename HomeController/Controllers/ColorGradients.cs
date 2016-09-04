@@ -6,51 +6,54 @@
     using Windows.UI;
     using Q42.HueApi;
 
-    internal static class ColorGradients
+    public static class ColorGradients
     {
-        internal static readonly Dictionary<string, ColorGradient> Gradients = new Dictionary
-            <string, ColorGradient>
+        public static readonly IList<ColorGradient> Gradients = new List
+            <ColorGradient>
         {
-            { "Crimson", new ColorGradient("FF5E3A", "FF2A68") },
-            { "Orange", new ColorGradient("FF9500", "FF5E3A") },
-            { "Sunshine", new ColorGradient("FFDB4C", "FFCD02") },
-            { "Forest", new ColorGradient("87FC70", "0BD318") },
-            { "Waves", new ColorGradient("52EDC7", "5AC8FB") },
-            { "Sky", new ColorGradient("1AD6FD", "1D62F0") },
-            { "Sleek", new ColorGradient("4A4A4A", "2B2B2B") },
-            { "Aqua", new ColorGradient("55EFCB", "5BCAFF") },
-            { "Purple", new ColorGradient("C644FC", "5856D6") },
-            { "Pink", new ColorGradient("EF4DB6", "C643FC") },
-            { "Snow", new ColorGradient("DBDDDE", "898C90") }
+            new ColorGradient("Crimson", 0xFF5E3A, 0xFF2A68),
+            new ColorGradient("Orange", 0xFF9500, 0xFF5E3A),
+            new ColorGradient("Sunshine", 0xFFDB4C, 0xFFCD02),
+            new ColorGradient("Forest", 0x87FC70, 0x0BD318),
+            new ColorGradient("Waves", 0x52EDC7, 0x5AC8FB),
+            new ColorGradient("Sky", 0x1AD6FD, 0x1D62F0),
+            new ColorGradient("Sleek", 0x4A4A4A, 0x2B2B2B),
+            new ColorGradient("Aqua", 0x55EFCB, 0x5BCAFF),
+            new ColorGradient("Purple", 0xC644FC, 0x5856D6),
+            new ColorGradient("Pink", 0xEF4DB6, 0xC643FC),
+            new ColorGradient("Snow", 0xDBDDDE, 0x898C90)
         };
     }
 
-    internal class ColorGradient
+    public class ColorGradient
     {
-        internal ColorGradient(string startColorHex, string endColorHex)
+        internal ColorGradient(string name, int startColor, int endColor)
         {
-            this.StartColorHex = startColorHex;
-            this.EndColorHex = endColorHex;
+            this.Name = name;
+            this.StartColor = startColor;
+            this.EndColor = endColor;
         }
 
-        internal string StartColorHex { get; set; }
+        public string Name { get; }
 
-        internal string EndColorHex { get; set; }
+        internal int StartColor { get; set; }
+
+        internal int EndColor { get; set; }
     }
 
-    internal static class ColorGradientExtensions
+    public static class ColorGradientExtensions
     {
-        internal static IList<RGBColor> GetColorsForLights(this ColorGradient gradient, int colorsCount)
+        public static IList<RGBColor> GetColorsForLights(this ColorGradient gradient, int colorsCount)
         {
             var colors = new List<RGBColor>();
 
-            var startColor = GetColorFromHexColorCode(gradient.StartColorHex);
-            var endColor = GetColorFromHexColorCode(gradient.EndColorHex);
+            var startColor = GetColorFromHexColorCode(gradient.StartColor);
+            var endColor = GetColorFromHexColorCode(gradient.EndColor);
 
-            // First convert normalize to double and then divide by the amount of colors we need to output
-            var redChange = (double)(endColor.R - startColor.R) / byte.MaxValue / colorsCount;
-            var greenChange = (double)(endColor.G - startColor.G) / byte.MaxValue / colorsCount;
-            var blueChange = (double)(endColor.B - startColor.B) / byte.MaxValue / colorsCount;
+            // First normalize to double and then divide by the amount of colors we need to output - 1
+            var redChange = (double)(endColor.R - startColor.R) / byte.MaxValue / (colorsCount - 1);
+            var greenChange = (double)(endColor.G - startColor.G) / byte.MaxValue / (colorsCount - 1);
+            var blueChange = (double)(endColor.B - startColor.B) / byte.MaxValue / (colorsCount - 1);
 
             for (var i = 0; i < colorsCount; i++)
             {
@@ -72,10 +75,9 @@
                 (double)color.B / byte.MaxValue);
         }
 
-        private static Color GetColorFromHexColorCode(string colorCode)
+        private static Color GetColorFromHexColorCode(int rgb)
         {
-            int argb = Int32.Parse(colorCode, NumberStyles.HexNumber);
-            return Color.FromArgb(0, (byte)(argb >> 16), (byte)(argb >> 8), (byte)argb);
+            return Color.FromArgb(0, (byte)(rgb >> 16), (byte)(rgb >> 8), (byte)rgb);
         }
     }
 }
